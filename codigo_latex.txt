@@ -1,0 +1,289 @@
+\documentclass[12pt]{article}
+\usepackage{setspace}
+\usepackage{amsmath,amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{pdfpages}
+\usepackage{url}
+\renewcommand{\UrlFont}{\small\tt}
+\usepackage[utf8]{inputenc}
+\usepackage[colorlinks=black,citecolor=black,urlcolor=black,bookmarks=trur,hypertexnames=true]{hyperref} 
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=black,
+}
+\usepackage[round]{natbib}
+\bibliographystyle{ieeetr}
+\usepackage[brazil]{babel}
+%\usepackage{pstricks}%, egameps}
+
+%\setlength{\textwidth}{17.2cm}
+% \setlength{\textheight}{23cm}
+%\addtolength{\oddsidemargin}{-22mm} 
+%\addtolength{\topmargin}{-15mm} \addtolength{\evensidemargin}{-15mm}
+%\setlength{\parskip}{1mm}
+%\setlength{\baselineskip}{500mm}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{assumption}{Assumption}
+\newtheorem{acknowledgment}{Acknowledgment}
+\newtheorem{algorithm}{Algorithm}
+\newtheorem{axiom}{Axiom}
+\newtheorem{case}{Case}
+\newtheorem{claim}{Claim}
+\newtheorem{conclusion}{Conclusion} 
+\newtheorem{condition}{Condition}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{criterion}{Criterion}
+\newtheorem{defn}{Definition}[section]
+
+\newtheorem{example}{Example}[section]
+\newtheorem{exercise}{Exercise}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{notation}{Notation}
+\newtheorem{problem}{Problem}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{remark}{Remark}
+\newtheorem{solution}{Solution}
+\newtheorem{summary}{Summary}
+\newenvironment{proof}[1][Proof]{\textbf{#1.} }{\rule{0.5em}{0.5em}}
+
+\begin{document}
+\begin{titlepage}
+\begin{center}
+\textbf{\LARGE Fundação Getulio Vargas}\\ 
+\textbf{\LARGE Escola de Matemática Aplicada}
+
+\par
+\vspace{170pt}
+\textbf{\Large Victor Vilanova \\ e Alexandre Garriga}\\
+\vspace{32pt}
+\textbf{\Large Modelagem Matemática da situação \\ da COVID-19 em Portugal}\\
+\end{center}
+
+\par
+\vfill
+\begin{center}
+{{\normalsize Rio de Janeiro}\\
+{\normalsize \the\year}}
+\end{center}
+\end{titlepage}
+
+\thispagestyle{empty}
+
+\newpage
+\begin{center}
+\textbf{\LARGE Victor Vilanova \\ e Alexandre Garriga}
+
+\par
+\vspace{200pt}
+\textbf{\Large Modelo Proposto: SEIR}
+\end{center}
+
+\par
+\vspace{85pt}
+\hspace*{175pt}\parbox{7.6cm}{{\normalsize Esse artigo foi feito por alunos da graduação em Matemática Aplicada da Fundação Getúlio Vargas como forma de avaliação na disciplina de Modelagem de Fenômenos Biológicos}}
+
+\par
+\vspace{1em}
+\hspace*{125pt}\parbox{10.0cm}{{\normalsize Área de Concentração: Modelagem Matemática}}
+
+\par
+\vspace{1em}
+\hspace*{125pt}\parbox{10.0cm}{{\normalsize Professor da disciplina: Flávio Coelho}\\
+{\normalsize Monitor da disciplina: Beatriz Coimbra }}
+
+\par
+\vfill
+\begin{center}
+{{\normalsize Rio de Janeiro}\\
+{\normalsize \the\year}}
+\end{center}
+
+\thispagestyle{empty}
+
+\newpage
+\noindent{\textbf{\large Agradecimentos}}
+\vspace{1pt}
+
+ Primeiramente, gostariamos de agradecer a Fundação Getúlio Vargas pela oportunidade e desenvolvimento. Agradecer ao professor Flávio Coelho por ser sempre solícito quanto a passagem de conhecimento e, também, a monitora da disciplina, Beatriz Coimbra, pela disposição na retirada de dúvidas.
+
+\thispagestyle{empty}
+
+\newpage
+\begin{center}
+\textbf{\normalsize Resumo}
+\end{center}
+\vspace{1pt}
+
+Esse trabalho tem como objetivo a modelagem matemática da Sars-CoV-2, COVID-19, em Portugal. Feita como projeto de conclusão da disciplina de Modelagem de Fenômenos Biológicos da Fundação Getúlio Vargas - Rio de Janeiro.\newline
+Para isso, utilizaremos um modelo SEIR dependente do tempo, usaremos os dados públicados pela DGS sobre a pandemia como forma de adequar nosso modelo. Por fim, temos o intuito de entender como ocorreu a pandemia portuguesa e realizar previsões sobre a situação no país nas próximas semanas.
+
+\thispagestyle{empty}
+
+\newpage
+\begin{center}
+\textbf{\normalsize Abstract}
+\end{center}
+\vspace{1pt}
+
+A2 ...
+
+\thispagestyle{empty}
+
+\newpage
+\tableofcontents
+\thispagestyle{empty}
+
+\newpage
+\section{Introdução}
+Muito informação já se sabe sobre a Sars-CoV-2, mas conhecida como a COVID-19, uma doença transmitira por vírus altamente infectuosa. Na maioria dos casos, a infecção pelo vírus Sars-Cov-2 pode levar ao infectado contrair síndrome de dificuldade respiratória aguda (ARDS) causando insuficiência respiratória, choque séptico, falha múltipla de orgãos e até a morte. Estudos, do começo da aparição da doença na China, sugerem que a taxa de mortalidade esteja em torno de $3.5\%$. Entretanto, esse valor parece ser mais alto quando olhamos para o histórico da doença na Itália, por exemplo.
+\newline
+\newline
+Nesse sentido, ao abordarmos a situação da efermidade em Portugal, nosso país de estudo desse artigo, a taxa de crescimento da epidemia no país foi uma das maiores da Europa. Por meados de 2 de março de 2020, havia sido observado que a taxa de crescimento de novos casos por dia da infecção foi de $34\pm13\%$, o que levou a estimar que o pico da epidemia alojada no país seria já no fim de março. As cidades mais afetadas até o momento eram Lisboa e Porto, porém logo a doença se espalhou por todo o país.
+Nesse coxtexto, com Portugal com um crescimento quase que exponencial da epidemia, diversas medidas de contençao tiveram que ser adotadas pelo governo, como a quarentena de pessoas nas suas casas, o fechamento de escolas \cite{fechamento_escolas}, distânciamento social e adoção de medidas de proteção antiséptica e uso de máscara obrigatório, com obejtivo de conseguir o achatamento da curva, e assim, prorrogar o pico da epidemia, desafogando hospitais e garantindo leito para os enfermos. 
+\newline
+\newline
+Assim, com as medidas para a contenção do surto, que foi uma das mais rápidas da Europa, o país teve o pico observado dia 10 de abril de 2020, com $1516$ novos casos observados pela população, gerando declaração de estado de emergência pela alta taxa de mortes no país \cite{altasmortes} e, portanto, mais restrições de circulação para a população.
+Após isso, as medidas adotadas tiveram um grande efeito sobre a epidemia local, de 1516 casos confirmados no começo de abril, cairam para 92 casos confirmados dia 03 de maio de 2020, evidênciando os efeitos positivos gerados pelas medidas de contenção.
+Todavia, ao abordarmos o momento atual, dia 28 de setembro de 2020, a situação não é favorável. No começo de setembro, a taxa de novos casos diária voltou a subir no país e no dia 26 de setembro o país, que antes, estava com a epidemia de certo modo controlada, ultrapassou a barreira de 24 mil casos simultâneos, oque chamou atenção tanto das autoridades quanto da população, para não relaxamento das medidas de contenção e sua importância.
+\newline \newline
+Nesse contexto, a situação geral atual da epidemia de Portugal é o enfrentamento da chamada "segunda onda". A segunda onda, embora possa ser evitada ao máximo, é prevista em muitos casos de pandêmia pela incerteza de saber se aquela doença já atingiu o seu limiar, que no caso de modelos SIR adaptados é o famoso $R_0 < 1$, apenas quando esse limiar é atingído é que é seguro o relaxamento das medidas de contenção, evitando a segunda onda da doença.
+
+
+
+
+\newpage
+\section{Referencial teórico (Modelagem Matemática)}
+
+\subsection{Predicting the evolution of SARS-Covid-2 in Portugal using an adapter Sir Model previously used in South Korea for the MERS outbreak \cite{ref01}}
+Autor: Pedro Teles 
+\newline
+Data: 13 de Abril de 2020\newline
+Faculdade de Ciências da Univerdidade do Porto \\
+\newline
+Nesse artigo, Pedro Teles faz uma rica introdução sobre o início da disseminação do corona virus mundialmente e justifica usar o mesmo modelo usado para descrever MERS na Corea do Sul, pois ambas as doenças são provocadas por um vírus da familia coronavirus, e tem sintomas similares, embora a MERS tem uma taxa de mortalidade bem maior.
+\newline
+Nesse sentido, Pedro Teles na sua metodologia utiliza um modelo adaptado do SIR, em que S número de sucetíveis; E, número de expostos; A, número de assintomáticos; I número total de infectados; H número de casos hospitalizados; R, número de casos removidos e N, número total da população.
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.7]{trab 01.PNG}
+\end{figure}
+Após isso, há a declaração de parâmetros usados e, como a epidemia em Portugal não estava, de fato estabelecida ainda, ou seja, não havia dados suficientes. Pedro Teles para achar seus parâmetros usou dados da epidemia da Itália, por ser uma país vizinho e similar, como forma de estimar os devidos parâmetros.
+\newline
+Assim, há uma declaração de 4 possíveis cenários para Portugal, que se diferenciam de acordo com o nível de medidas, de proteção e contençao, adotadas pelo governo e população. Sendo assim, ficando explítito a recomendação da tomada de medidas de contenção.
+\newpage
+\subsection{A time-dependent SEIR model to analyse the evolution of the Sars-CoV-2 Epidemic outbreak in Portugal \cite{ref02}}
+Autor: Pedro Teles \newline
+Data: 4 de Maio de 2020 \newline
+Faculdade de Ciências da Univerdade do Porto
+\newline
+Nesse artigo, Pedro Teles, mesmo autor do artigo citado em 2.1, realiza outra modelagem de forma a mitigar os parâmetros e se adequar aos dados, agora, de Portugal. Nesse sentido, em sua introdução o autor justifica o uso de paramêtros dependentes do tempo, pois ele permite ajustar os parâmetros de acordo com o tempo que passa e, assim, as condições da epidemia que mudam ao decorrer do tempo.
+\newline
+\newline
+Sendo assim, Pedro Teles utiliza um modelo de SEIR, em que um de seus parâmetros é dependente do tempo. Dessa vez, já se possui dados de Portugal e, se usa que 13\% dos casos de COVID-19 são hospitalizados, dado que foi retirado da análise a partir da pandemia portuguesa.
+\newline \newline
+Nesse sentido, o modelo é composto por S, casos sucetíveis; E, expostos; A, assintomáticos; I, infectados; H, número de casos hospitalizados; R, numero de casos removidos e N, número total da população portuguesa. Ademais, nesse modelo o parâmetro dependente do tempo é $\beta(t)$, que representa o coeficiente de transmissão dos assintomáticos, sintomáticos e casos hospitalizados para sucetíveis.
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.7]{trab 02.png}
+\end{figure}
+Após isso, Pedro Teles acha seus parâmetros, a partir, de dados já de Portugal de modo a máximizar a semelhança com a curva de dados original.
+\newline
+\newline
+Assim, para concluir, Pedro demonstra que pequenas mudanças nos parâmetros observados possuem grande influência na forma das curvas e, assim, na trajetória da pandemia. Desse modo, a importância de um modelo baseado no tempo para os parâmetros. E conclui, que a forma mais eficaz de controlar a disseminação da pandemia é são o uso de prevenção de proteções pessoais e medidas de isolamento.
+\subsection{Predicting the evolution and control of the COVID-19
+pandemic in Portugal \cite{ref03}}
+Autores: Icardo J. Pais e Nuno Taveira \newline
+Data: Primeira publicação: 23 de Abril de 2020; Segunda publicação: 9 de setembro de 2020 \newline
+Centro de investigação Interdisciplinar Egas Moniz (CiiEM), Instituto Universitário Egas Moniz, Caparica, 2829-511, Portugal
+2
+\newline Research Institute for Medicines (iMed.ULisboa), Faculty of Pharmacy, University of Lisbon, Lisbon, 1649-003, Portugal
+\newline
+\newline
+Nesse artigo, que tivemos como objeto de estudo, já se passou por uma atualização pelo fato da possibilidade de utilizar os dados captados de Portugal, e assim, melhorar o modelo e obter melhores insights que ajudaram a entender melhor a evolução do COVID-19 em Portugal. Com isso, previnir novos surtos na pandemia local.
+\newline \newline
+Sendo assim, os autores desse trabalho, focaram em uma abordagem simplista da pandemia e da realidade. Para isso, utilizam o modelo SI para a modelagem matemática da pandemia. Em que: S, utiliza-se para sucetíveis e I, para infectados. Segue as equações de EDO's utilizadas no modelo:
+\[ \frac{dI}{dt} = k(1-\alpha) SI + \alpha k \beta S I - \frac{1}{\gamma} I \]
+\[ \frac{dS}{dt} = -k(1-\alpha) SI - \alpha k \beta S I \]
+Com o ajustamento dos parâmetros do modelo com os dados da pandemia obtidos de Portugal, pode-se chegar a conclusão que do início da Pandemia, entre os dias 11 e 20 de março, no país, a população em geral não implementou de fato as medidas de proteção e distânciamento impostas pelo governo, estima-se que apenas dentre 30\% a 40\% da população ficou de fato em quarentena nesse ínicio. Entretanto, após a pandemia se alastrar pelo país, estima-se que, pelo dia 19 de Agosto, dentre 70\% a 75\% da população estava respeitando todas as medidas pedidas pelo governo e da direção-geral de saúde de Portugal. Dessa maneira, mostrando uma concientização da população frente ao problema da pandemia.
+
+\newpage
+\section{Metodologia}
+Como Metodologia do nosso modelo epidemiológico, iremos adotar um modelo SEIR dependente do tempo. Ou seja, nosso modelo adotado será um SEIR em que haverá parâmetros descritos a seguir que devem variar com o tempo.
+\newline
+A escolha desse modelo é justificada por dois grandes motivos:
+\begin{itemize}
+    \item queremos modelar a epidemia de um longo período de tempo, nesse sentido, queremos buscar adequação tanto para o ínicio da pandemia em Portugal, quanto para os momentos atuais, que não são favoráveis e que indicam um novo pico epidêmico em breve.
+    \item É um modelo relativamente simples de EDO's, mas que podemos retirar bastantes informações e, assim, poder gerar conclusões concretas a respeito da COVID-19 em Portugal e, até mesmo, realizar previsões a respeito do futuro da pandemia portuguesa.
+\end{itemize}
+\subsection{SEIR (dependente do tempo)}
+Visualização do modelo: \newline
+\begin{figure}[!h]
+    \centering
+    \includegraphics[scale=0.6]{modelo_final.png}
+    \caption{Modelo SEIR - dependente do tempo, feito com Lucidchart}
+\end{figure}
+\newline
+\newpage
+Sendo assim, o modelo escolhido para objeto de estudo da modelagem é composto por S, Sucetíveis; E, Expostos; I, Infectados; R, Recuperados e M, Mortos. Observe que iremos supor que é possível a reinfecção pelo vírus, ou seja, os casos recuperados voltam a ser sucetíveis. Resolvemos isso, pois de acordo com uma pesquisa realizada pelo departamento de Microbiologia de HKU em Hong Kong \cite{reinfeccao}, observaram que é possível a reinfecção pelo vírus podendo ser um novo genoma da COVID-19.
+\newline
+\newline
+Dos parâmetros, teremos $\beta(t)$ que será o coeficiente, em função do tempo, da taxa da população que será exposta ao vírus; $\chi(t)$ que será a taxa da população que ficou de quarentena; $\alpha$ que será o coeficiente da taxa dos expostos que contraem e transmitem o vírus; $\rho$ parâmetro que determinará a porcentagem dos que são infectados que se recuperam e $\gamma$ a taxa dos infectados que vêem a falecer.
+\newline
+\newline
+Dessa maneira, com as variáveis e parâmetros definidos, podemos montar nossas EDO's (equações diferenciais ordinárias):
+
+\begin{align*}
+  \frac{dS}{dt} &= -\beta(t)(1-\chi(t))S + \rho I    \\
+ \frac{dE}{dt} &= \beta(t)(1-\chi(t))S - \alpha E    \\
+ \frac{dI}{dt} &= \alpha E - \rho I - \gamma I   \\
+ \frac{dM}{dt} &= \gamma I \\
+ Q & = S\chi(t) \\
+ S + Q + E + I + D & = N
+\end{align*}
+\newpage 
+\subsubsection{Análise Dimensional}
+Para validarmos nosso modelo, precisamos da análise dimensional. Sendo assim, chamaremos nossa grandeza de número de pessoas de $[M]$ e a grandeza das taxas de $[1/T]$, assim:
+
+\begin{align*}
+  \frac{dS}{dt} = \bigg[\frac{M}{T}\bigg] &== -\beta(t)(1-\chi(t))S + \rho I = -\frac{1}{T}(1-1)M + \frac{1}{T}M = \bigg[\frac{M}{T}\bigg]   \\
+  \frac{dE}{dt} \bigg[\frac{M}{T}\bigg] & == \beta(t)(1-\chi(t))S - \alpha E = \frac{1}{T}(1-1)M - \frac{1}{T}M =  \bigg[\frac{M}{T}\bigg]   \\
+ \frac{dI}{dt} \bigg[\frac{M}{T}\bigg] & == \alpha E - \rho I - \gamma I = \frac{1}{T}M - \frac{1}{T}M - \frac{1}{T}M =  \bigg[\frac{M}{T}\bigg]  \\
+ \frac{dM}{dt} \bigg[\frac{M}{T}\bigg] & == \gamma I = \frac{1}{T}M =  \bigg[\frac{M}{T}\bigg]\\
+ Q = \bigg[M\bigg] & == S\chi(t) = M = \bigg[M\bigg] \\
+ S + Q + E + I + D = \bigg[M\bigg] & == N = \bigg[M\bigg]
+\end{align*}
+
+\newpage
+
+\subsection{Captura dos dados}
+
+A captura dos nossos dados de interesse será feita pela própria Direção-Geral de saúde de Portugal, que disponibiliza de forma clara, eficiênte e transparente os dados e informações a respeito da COVID-19 no país.
+
+\newpage
+\section{Resultados}
+
+Nesta seção serão apresentados os resultados... PARA A2...
+\subsection{xx}
+xx
+\subsubsection{yy}
+xx
+\subsection{xx}
+xx
+
+\newpage
+\section{Conclusão}
+Para A2....
+
+\newpage
+\section{Referências Bibliográficas}
+\bibliography{ref.bib}
+
+
+
+\end{document}
