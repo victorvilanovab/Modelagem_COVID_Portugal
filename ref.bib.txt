@@ -1,0 +1,58 @@
+@article{fechamento_escolas,
+ author  ={Maria Assunção Flores},
+ title   ={Teacher education in times of COVID-19 pandemic in Portugal: national, institutional and pedagogical responses},
+ journal ={Journal of Education for Teaching},
+ address ={Portugal},
+ note   = "\url{https://www.tandfonline.com/doi/full/10.1080/02607476.2020.1799709}",
+ urlaccessdate={28 nov. 2020},
+ year    =2020
+}
+
+@article{reinfeccao,
+     author  ={ Kelvin Kai-Wang To ,Ivan Fan-Ngai Hung,Jonathan Daniel Ip, Allen Wing-Ho Chu, Wan-Mui Chan, Anthony Raymond Tam, Carol Ho-Yan Fong, Shuofeng Yuan, Hoi-Wah Tsoi, Anthony Chin-Ki Ng, Larry Lap-Yip Lee, Polk Wan, Eugene Tso, Wing-Kin To, Dominic Tsang, Kwok-Hung Chan, Jian-Dong Huang, Kin-Hang Kok, Vincent Chi-Chung Cheng, Kwok-Yung Yuen},
+ title   ={COVID-19 re-infection by a phylogenetically distinct SARS-coronavirus-2 strain confirmed by whole genome sequencing},
+ journal ={Oxford Academy},
+ address ={Hong Kong},
+ note   = "\url{https://academic.oup.com/cid/advance-article/doi/10.1093/cid/ciaa1275/5897019}",
+ urlaccessdate={28 nov. 2020},
+ year    =2020
+}
+@article{ref01,
+     author  ={ Pedro Teles},
+ title   ={Predicting the evolution Of SARS-Covid-2 in Portugal using an adapted SIR Model previously used in South Korea for the MERS outbreak},
+ journal ={Cornell University},
+ address ={Estados Unidos},
+ note   = "\url{https://arxiv.org/abs/2003.10047}",
+ urlaccessdate={28 nov. 2020},
+ year    =2020
+}
+
+@article{ref02,
+     author  ={ Pedro Teles},
+ title   ={A time-dependent SEIR model to analyse the evolution of the SARS-CoV-2 epidemic outbreak in Portugal},
+ journal ={Cornell University},
+ address ={Estados Unidos},
+ note   = "\url{https://arxiv.org/abs/2003.10047}",
+ urlaccessdate={28 nov. 2020},
+ year    =2020
+}
+
+@article{ref03,
+     author  ={ Ricardo J. Pais and Nuno Taveira},
+ title   ={Predicting the evolution and control of the COVID-19 pandemic in Portugal},
+ journal ={F1000Research},
+ address ={Portugal},
+ note   = "\url{https://f1000research.com/articles/9-283/v2}",
+ urlaccessdate={28 nov. 2020},
+ year    =2020
+}
+
+@article{altasmortes,
+     author  ={ Paulo Jorge Nogueira},
+ title   ={Excess Mortality Estimation During the COVID-19 Pandemic: Preliminary Data from Portugal},
+ journal ={Acta Médica Portuguesa},
+ address ={Portugal},
+ note   = "\url{https://www.actamedicaportuguesa.com/revista/index.php/amp/article/view/13928}",
+ urlaccessdate={28 nov. 2020},
+ year    =2020
+}
